@@ -1,0 +1,17 @@
+@startuml
+class EntityNotFoundException {
+    + EntityNotFoundException() 
+    + EntityNotFoundException(String message) 
+    + EntityNotFoundException(String message, Throwable cause) 
+    + EntityNotFoundException(Throwable cause) 
+}
+class ORMException {
+    + ORMException()
+    + ORMException(String message)
+    + ORMException(String message, Throwable cause)
+    + ORMException(Throwable cause)
+}
+
+RuntimeException <|-- EntityNotFoundException
+RuntimeException <|-- ORMException
+@enduml

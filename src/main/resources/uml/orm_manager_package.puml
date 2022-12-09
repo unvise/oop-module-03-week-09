@@ -1,0 +1,41 @@
+@startuml
+interface PreparedStatementManager {
+    + void executeUpdate(String sql) throws SQLException
+    + void executeUpdate(String sql, List<Object> values) throws SQLException
+    + <T> List<T> executeQuery(String sql, Function<ResultSet, List<T>> resultSetListFunction)
+    + void fillPreparedStatement(PreparedStatement preparedStatement, List<Object> values)
+    + static <T extends Identifiable<?>> List<T> findAll(PreparedStatementManager preparedStatementManager, ResultSetMapper<T> resultSetMapper, String sql)
+}
+
+class PreparedStatementManagerImpl {
+    - DataSource dataSource
+    + PreparedStatementManagerImpl(DataSource dataSource)
+    + void executeUpdate(String sql) throws SQLException
+    + void executeUpdate(String sql, List<Object> values) throws SQLException
+    + <T> List<T> executeQuery(String sql, Function<ResultSet, List<T>> resultSetListFunction)
+    + void fillPreparedStatement(PreparedStatement preparedStatement, List<Object> values)
+}
+
+interface SetterStrategy {
+    + <T extends Identifiable<?>> void invoke(BeanFieldInfo beanFieldInfo, T instance, ResultSet resultSet, PreparedStatementManager preparedStatementManager)
+    + static <T extends Identifiable<?>> Function<ResultSet, List<T>> findAllFunction(PreparedStatementManager preparedStatementManager,Class<T> clazz)
+}
+class CommonSetterStrategy {
+    + <T extends Identifiable<?>> void invoke(BeanFieldInfo beanFieldInfo, T instance, ResultSet resultSet, PreparedStatementManager preparedStatementManager)
+}
+class EmptyStrategy {
+    + <T extends Identifiable<?>> void invoke(BeanFieldInfo beanFieldInfo, T instance, ResultSet resultSet, PreparedStatementManager preparedStatementManager)
+}
+class OneToManySetterStrategy {
+    + <T extends Identifiable<?>> void invoke(BeanFieldInfo beanFieldInfo, T instance, ResultSet resultSet, PreparedStatementManager preparedStatementManager)
+}
+class OneToOneSetterStrategy {
+    + <T extends Identifiable<?>> void invoke(BeanFieldInfo beanFieldInfo, T instance, ResultSet resultSet, PreparedStatementManager preparedStatementManager)
+}
+
+PreparedStatementManager <|.. PreparedStatementManagerImpl
+SetterStrategy <|.. CommonSetterStrategy
+SetterStrategy <|.. EmptyStrategy
+SetterStrategy <|.. OneToManySetterStrategy
+SetterStrategy <|.. OneToOneSetterStrategy
+@enduml

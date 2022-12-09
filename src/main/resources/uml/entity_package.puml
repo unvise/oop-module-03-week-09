@@ -1,0 +1,91 @@
+@startuml
+interface Identifiable<ID> {
++ getId() ID
+}
+
+entity Board {
+- Long id
+- String name
+- LocalDateTime startDateTime
+- LocalDateTime endDateTime
+- Route route
+- List<Ticket> tickets
++ Board()
++ Board(Long id, String name, LocalDateTime startDateTime, LocalDateTime endDateTime)
++ ...getters()
++ ...setters()
++ toString()
++ int hashCode()
++ boolean equals()
++ BoardBuilder builder()
+}
+entity Ticket {
+- Long id
+- Double price
+- String currency
+- Board board
++ Ticket()
++ Tiket(Long id, Double price, String currency)
++ ...getters()
++ ...setters()
++ toString()
++ int hashCode()
++ boolean equals()
++ TicketBuilder builder()
+}
+entity Route {
+- Long id
+- String name
+- List<RoutePath> routePaths
++ Route()
++ Route(Long id, String name, List<RoutePath> routePaths)
++ ...getters()
++ ...setters()
++ toString()
++ int hashCode()
++ boolean equals()
++ RouteBuilder builder()
+}
+entity RoutePath {
+- Long id
+- Geolocation from
+- Geolocation to
+- Double progress
+- Route route
++ RoutePath()
++ RoutePath(Long id, Geolocation from, Geolocation to, Double progress, Route route)
++ ...getters()
++ ...setters()
++ String toString()
++ int hashCode()
++ boolean equals()
++ RoutePathBuilder builder()
+}
+entity Geolocation {
+- Long id
+- LocalDateTime dateTime
+- Double latitude
+- Double longitude
++ Geolocation()
++ Geolocation(Long id, LocalDateTime dateTime, Double latitude, Double longitude)
++ ...getters()
++ ...setters()
++ String toString()
++ int hashCode()
++ boolean equals()
++ GeolocationBuilder builder()
+}
+
+Identifiable <|.. Board
+Identifiable <|.. Ticket
+Identifiable <|.. Route
+Identifiable <|.. RoutePath
+Identifiable <|.. Geolocation
+
+Board ||--o{ Ticket
+Board ||--|| Route
+
+Route ||--o{ RoutePath
+
+RoutePath ||--|| Geolocation
+@enduml

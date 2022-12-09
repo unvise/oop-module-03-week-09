@@ -1,0 +1,9 @@
+@startuml
+class DatabaseInitializer {
+    + static void init(DataSource dataSource)
+    + static void createTables(PreparedStatementManager preparedStatementManager)
+    + static void addColumns(PreparedStatementManager preparedStatementManager)
+    + static void addPKConstraints(PreparedStatementManager preparedStatementManager)
+    + static void addFKConstraints(PreparedStatementManager preparedStatementManager)
+}
+@enduml

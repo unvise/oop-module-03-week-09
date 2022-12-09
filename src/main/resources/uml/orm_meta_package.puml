@@ -1,0 +1,44 @@
+@startuml
+class TableInfo {
+    - String tableName
+    - Class<?> tableClass
+    - Map.Entry<String, BeanFieldInfo> idColumn
+    - Map<String, BeanFieldInfo> columns
+    - Map<String, BeanFieldInfo> oneToOne
+    - Map<String, BeanFieldInfo> oneToMany
+    - Map<String, BeanFieldInfo> manyToOne
+    + ...getters()
+    + ...setters()
+    + List<BeanFieldInfo> getAllBeanFieldInfo()
+    + Boolean isTableHasReferences()
+    + void fillColumns(List<BeanFieldInfo> beanFieldInfos)+
+    + String toString()
+    + int hashCode()
+    + boolean equals()
+    + TableBuilder builder()
+}
+class BeanFieldInfo {
+    - Field field
+    - Method getter
+    - Method setter
+    - TableInfo tableInfo
+    + Optional<Map.Entry<String, BeanFieldInfo>> getPrimaryKeyColumn()
+    + Optional<Map.Entry<String, BeanFieldInfo>> getOneToOneColumn()
+    + Optional<Map.Entry<String, BeanFieldInfo>> getManyToOneColumn()
+    + Optional<Map.Entry<String, BeanFieldInfo>> getColumn()
+    + String getColumnName()
+    + Boolean isColumnHasPK()
+    + Boolean isOneToOne()
+    + Boolean isOneToMany()
+    + Boolean isManyToOne()
+    + Boolean isColumn()
+    + ...getters()
+    + ...setters()
+    + String toString()
+    + int hashCode()
+    + boolean equals()
+    + BeanFieldInfoBuilder build()
+    - Optional<Map.Entry<String, BeanFieldInfo>> getColumn(Supplier<Boolean> booleanSupplier)
+}
+BeanFieldInfo *-- TableInfo
+@enduml

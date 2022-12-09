@@ -1,0 +1,23 @@
+@startuml
+class SQLQueryGenerator {
+    + static String createTable(TableInfo tableInfo)
+    + static String addClassesAsColumns(TableInfo tableInfo)
+    + static String addClassAsColumn(TableInfo tableInfo, String value)
+    + static String addOneToOneFields(TableInfo tableInfo)
+    + static String addManyToOneFields(TableInfo tableInfo)
+    + static String addPKConstraints(TableInfo tableInfo)
+    + static String addFKConstraint(BeanFieldInfo beanFieldInfo)
+    + static String insert(TableInfo tableInfo)
+    + static String select(String tableName, List<String> valueNames)
+    + static String selectById(TableInfo tableInfo, String id)
+    + static String selectByFieldWhere(TableInfo tableInfo, String fieldName, List<String> values)
+    + static String updateById(TableInfo tableInfo, String id)
+    + static String deleteById(TableInfo tableInfo, String id)
+    - static String queries(Integer size)
+    - static String joinColumns(List<String> valueNames)
+}
+
+class ToSQLTypesResolve {
+    + static String resolve(Class<?> clazz)
+}
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+class ProxyUtils {
+    + static <T> T cglibProxy(Class<T> clazz, Callback callback)
+    + static <T> T cglibProxy(Class<T> clazz)
+}
+interface ThrowingFunction {
+    + R apply(T t) throws E
+    + static <T, R> Function<T, R> wrap(ThrowingFunction<T, R, Exception> throwingFunction)
+}
+@enduml

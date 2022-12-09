@@ -1,0 +1,13 @@
+@startuml
+annotation Column {
+    String name() default ""
+    boolean primaryKey() default false
+}
+annotation ManyToOne {}
+annotation OneToMany {}
+annotation OneToOne {}
+annotation Table {
+    String name()
+}
+
+@enduml
